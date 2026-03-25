@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CleanMaster - Tienda de Limpieza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>✨ CleanMaster Premium</h1>
+    <p>Calidad profesional para tu hogar</p>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="filter-section">
+        <h3>Categorías</h3>
+
+        <ul class="desktop-categories">
+          <li onclick="filtrarProductos('all')" class="category-item active">Todos</li>
+          <li onclick="filtrarProductos('desinfectante')" class="category-item">Desinfectantes</li>
+          <li onclick="filtrarProductos('lavanderia')" class="category-item">Lavandería</li>
+          <li onclick="filtrarProductos('accesorios')" class="category-item">Accesorios</li>
+        </ul>
+
+        <select class="mobile-categories" onchange="filtrarProductos(this.value)">
+          <option value="all">🔍 Seleccionar Categoría</option>
+          <option value="all">Todos los productos</option>
+          <option value="desinfectante">Desinfectantes</option>
+          <option value="lavanderia">Lavandería</option>
+          <option value="accesorios">Accesorios</option>
+        </select>
+      </div>
+
+      <div class="cart-summary">
+        <h4>📋 Tu Pedido</h4>
+        <div id="lista-resumen" class="lista-resumen">Tu pedido está vacío</div>
+        <hr>
+        <div class="total-compra">Total: <span id="total-precio">$0</span></div>
+
+        <button class="btn-whatsapp" onclick="enviarWhatsApp()">
+          🚀 Enviar a WhatsApp
+        </button>
+        <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar Carrito</button>
+      </div>
+    </aside>
+
+    <main class="products">
+      <div class="card" data-category="desinfectante">
+        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80">
+        <div class="card-content">
+          <h4>Desinfectante Multiusos</h4>
+          <div class="price" data-valor="12500">$12.500</div>
+          <button class="btn-info"
+            onclick="verInfo('Desinfectante Multiusos', 'Elimina el 99.9% de virus y bacterias. No daña superficies.')">ℹ️
+            Características</button>
+          <div class="qty-selector">
+            <button onclick="cambiarCant('p1', -1)">-</button>
+            <input type="number" id="p1" value="0" min="0" readonly>
+            <button onclick="cambiarCant('p1', 1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="lavanderia">
+        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80">
+        <div class="card-content">
+          <h4>Detergente Líquido 3L</h4>
+          <div class="price" data-valor="35000">$35.000</div>
+          <button class="btn-info"
+            onclick="verInfo('Detergente Líquido 3L', 'Fórmula concentrada para 40 lavados. Protege colores.')">ℹ️
+            Características</button>
+          <div class="qty-selector">
+            <button onclick="cambiarCant('p2', -1)">-</button>
+            <input type="number" id="p2" value="0" min="0" readonly>
+            <button onclick="cambiarCant('p2', 1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-category="accesorios">
+        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=500&q=80">
+        <div class="card-content">
+          <h4>Paños Microfibra x3</h4>
+          <div class="price" data-valor="18900">$18.900</div>
+          <button class="btn-info"
+            onclick="verInfo('Paños Microfibra x3', 'No deja pelusas. Ideal para vidrios y pantallas.')">ℹ️
+            Características</button>
+          <div class="qty-selector">
+            <button onclick="cambiarCant('p3', -1)">-</button>
+            <input type="number" id="p3" value="0" min="0" readonly>
+            <button onclick="cambiarCant('p3', 1)">+</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="modalInfo" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <h3 id="infoTitulo"></h3>
+      <p id="infoTexto" style="margin-top: 15px; color: #555;"></p>
+    </div>
+  </div>
+
+  <script>
+    function filtrarProductos(categoria) {
+      const productos = document.querySelectorAll('.card');
+      const botones = document.querySelectorAll('.category-item');
+      const selector = document.querySelector('.mobile-categories');
+
+      productos.forEach(card => {
+        card.style.display = (categoria === 'all' || card.dataset.category === categoria) ? "block" : "none";
+      });
+
+      // Sincronizar UI
+      selector.value = categoria;
+      botones.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('onclick').includes(`'${categoria}'`)) btn.classList.add('active');
+      });
+    }
+
+    function cambiarCant(id, cambio) {
+      const input = document.getElementById(id);
+      let valor = parseInt(input.value) + cambio;
+      if (valor < 0) valor = 0;
+      input.value = valor;
+      actualizarTotal();
+    }
+
+    function eliminarDelCarrito(id) {
+      document.getElementById(id).value = 0;
+      actualizarTotal();
+    }
+
+    function vaciarCarrito() {
+      document.querySelectorAll('.qty-selector input').forEach(i => i.value = 0);
+      actualizarTotal();
+    }
+
+    function actualizarTotal() {
+      const productos = document.querySelectorAll('.card');
+      let total = 0;
+      let resumenHtml = "";
+
+      productos.forEach(card => {
+        const nombre = card.querySelector('h4').innerText;
+        const precio = parseInt(card.querySelector('.price').dataset.valor);
+        const input = card.querySelector('input');
+        const cantidad = parseInt(input.value);
+
+        if (cantidad > 0) {
+          total += precio * cantidad;
+          resumenHtml += `<div class="item-resumen"><span>${nombre} (x${cantidad})</span><button class="btn-remove" onclick="eliminarDelCarrito('${input.id}')">❌</button></div>`;
+        }
+      });
+
+      document.getElementById('total-precio').innerText = `$${total.toLocaleString('es-CO')}`;
+      document.getElementById('lista-resumen').innerHTML = resumenHtml || "Tu pedido está vacío";
+    }
+
+    function verInfo(t, txt) {
+      document.getElementById('infoTitulo').innerText = t;
+      document.getElementById('infoTexto').innerText = txt;
+      document.getElementById('modalInfo').style.display = 'flex';
+    }
+
+    function cerrarModal() { document.getElementById('modalInfo').style.display = 'none'; }
+
+    function enviarWhatsApp() {
+      const productos = document.querySelectorAll('.card');
+      let mensaje = "¡Hola CleanMaster! 👋 Pedido:\n\n";
+      let total = 0;
+      let hayItems = false;
+
+      productos.forEach(card => {
+        const cantidad = parseInt(card.querySelector('input').value);
+        if (cantidad > 0) {
+          const precio = parseInt(card.querySelector('.price').dataset.valor);
+          mensaje += `✅ ${card.querySelector('h4').innerText} x${cantidad} - $${(precio * cantidad).toLocaleString('es-CO')}\n`;
+          total += precio * cantidad;
+          hayItems = true;
+        }
+      });
+
+      if (!hayItems) return alert("El carrito está vacío");
+      mensaje += `\n💰 *TOTAL: $${total.toLocaleString('es-CO')}*`;
+      window.open(`https://wa.me/573001234567?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+  </script>
+</body>
+
+</html>
