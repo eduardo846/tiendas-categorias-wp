@@ -52,7 +52,8 @@
 
     <main class="products">
       <div class="card" data-category="desinfectante">
-        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1661598334547-f406cf2ffe69?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
         <div class="card-content">
           <h4>Desinfectante Multiusos</h4>
           <div class="price" data-valor="12500">$12.500</div>
@@ -66,14 +67,46 @@
           </div>
         </div>
       </div>
+      <div class="card" data-category="desinfectante">
+        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80">
+        <div class="card-content">
+          <h4>Desinfectante Multiusos2</h4>
+          <div class="price" data-valor="12500">$12.500</div>
+          <button class="btn-info"
+            onclick="verInfo('Desinfectante Multiusos2', 'Elimina el 99.9% de virus y bacterias. No daña superficies.')">ℹ️
+            Características</button>
+          <div class="qty-selector">
+            <button onclick="cambiarCant('p5', -1)">-</button>
+            <input type="number" id="p5" value="0" min="0" readonly>
+            <button onclick="cambiarCant('p5', 1)">+</button>
+          </div>
+        </div>
+      </div>
 
       <div class="card" data-category="lavanderia">
-        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80">
+        <img
+          src="https://images.unsplash.com/photo-1714479229060-60d0f7450ff4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
         <div class="card-content">
           <h4>Detergente Líquido 3L</h4>
           <div class="price" data-valor="35000">$35.000</div>
           <button class="btn-info"
             onclick="verInfo('Detergente Líquido 3L', 'Fórmula concentrada para 40 lavados. Protege colores.')">ℹ️
+            Características</button>
+          <div class="qty-selector">
+            <button onclick="cambiarCant('p4', -1)">-</button>
+            <input type="number" id="p4" value="0" min="0" readonly>
+            <button onclick="cambiarCant('p4', 1)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-category="lavanderia">
+        <img
+          src="https://images.unsplash.com/photo-1764344815057-15a438b636ed?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+        <div class="card-content">
+          <h4>Detergente Líquido 4L</h4>
+          <div class="price" data-valor="37000">$37.000</div>
+          <button class="btn-info"
+            onclick="verInfo('Detergente Líquido 4L', 'Fórmula concentrada para 40 lavados. Protege colores.')">ℹ️
             Características</button>
           <div class="qty-selector">
             <button onclick="cambiarCant('p2', -1)">-</button>
